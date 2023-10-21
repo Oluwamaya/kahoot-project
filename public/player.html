@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-storage-compat.js"></script>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    body{
+        background-image: url(next.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 100vh !important;
+    }
+    main{
+        background: linear-gradient(to right, rgb(97, 64, 73) black, black);
+    }
+    .bamm{
+        width: 32%;
+        background-color: rgba(0, 0, 0, 0.799);
+        margin-top: 1%;
+        padding: 2%;
+        border-radius: 15px;
+    }
+    .matt{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-self: center;
+        text-align: center;
+    }
+
+    .loading {
+ --speed-of-animation: 0.9s;
+ --gap: 1px;
+ --first-color: #4c86f9;
+ --second-color: #49a84c;
+ --third-color: #f6bb02;
+ --fourth-color: #f6bb02;
+ --fifth-color: #2196f3;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ width: 100px;
+ gap: 6px;
+ height: 100px;
+}
+
+.loading span {
+ width: 4px;
+ height: 50px;
+ background: var(--first-color);
+ animation: scale var(--speed-of-animation) ease-in-out infinite;
+}
+
+.loading span:nth-child(2) {
+ background: var(--second-color);
+ animation-delay: -0.8s;
+}
+
+.loading span:nth-child(3) {
+ background: var(--third-color);
+ animation-delay: -0.7s;
+}
+
+.loading span:nth-child(4) {
+ background: var(--fourth-color);
+ animation-delay: -0.6s;
+}
+
+.loading span:nth-child(5) {
+ background: var(--fifth-color);
+ animation-delay: -0.5s;
+}
+
+@keyframes scale {
+ 0%, 40%, 100% {
+  transform: scaleY(0.05);
+ }
+
+ 20% {
+  transform: scaleY(1);
+ }
+}
+
+.loader {
+  --dim: 3rem;
+  width: var(--dim);
+  height: var(--dim);
+  position: relative;
+  animation: spin988 2s linear infinite;
+}
+
+.loader .circle {
+  --color: #1216f0;
+  --dim: 1.2rem;
+  width: var(--dim);
+  height: var(--dim);
+  background-color: var(--color);
+  border-radius: 50%;
+  position: absolute;
+}
+
+.loader .circle:nth-child(1) {
+  top: 0;
+  left: 0;
+}
+
+.loader .circle:nth-child(2) {
+  top: 0;
+  right: 0;
+}
+
+.loader .circle:nth-child(3) {
+  bottom: 0;
+  left: 0;
+}
+
+.loader .circle:nth-child(4) {
+  bottom: 0;
+  right: 0;
+}
+
+@keyframes spin988 {
+  0% {
+    transform: scale(1) rotate(0);
+  }
+
+  20%, 25% {
+    transform: scale(1.3) rotate(90deg);
+  }
+
+  45%, 50% {
+    transform: scale(1) rotate(180deg);
+  }
+
+  70%, 75% {
+    transform: scale(1.3) rotate(270deg);
+  }
+
+  95%, 100% {
+    transform: scale(1) rotate(360deg);
+  }
+}
+.mass{
+    display: flex;
+    justify-content: right;
+}
+
+button {
+ padding: 10px 20px;
+ border-radius: 10px;
+ border: 0;
+ background-color: rgb(116, 162, 236);
+ letter-spacing: 1.5px;
+ font-size: 15px;
+ transition: all .3s ease;
+ box-shadow: rgb(58, 98, 169) 0px 10px 0px 0px;
+ color: hsl(0, 0%, 100%);
+}
+
+button:hover {
+ box-shadow: rgb(25, 64, 126) 0px 7px 0px 0px;
+}
+
+button:active {
+ background-color: rgb(29,78,157);
+ /*50, 168, 80*/
+ box-shadow:rgb(30, 78, 154) 0px 0px 0px 0px;
+ transform: translateY(5px);
+ transition: 200ms;
+}
+</style>
+<body class="">
+    <main class="col-9 col-md-4 d-flex mx-auto mt-1">
+   
+ 
+    </main>
+    <br> <br> 
+    <div  class=" mx-auto mt-1"  style="width: 90%;" >
+       
+        <div class="w-75 conatainer-fluid d-flex justify-content-center align-items-center mx-auto" style="width: max-content;">
+            <h2 class="text-center text-light fs-3">Current players</h2>
+            <div class="loading">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+        </div>
+
+        <div class="container conatainer-fluid">
+            <div class=" text-center text-light mt-1 matt" id="cont">
+                <div class="loader">
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                </div>                
+            </div>
+        </div>
+    </div>
+   
+</body>
+</html>
+<script>
+   const firebaseConfig = {
+      apiKey: "AIzaSyAO2aEfhbla0c7_Z7XzP-mQMyof3dZWfrM",
+      authDomain: "ktdbad.firebaseapp.com",
+      projectId: "ktdbad",
+      storageBucket: "ktdbad.appspot.com",
+      messagingSenderId: "772957424943",
+      appId: "1:772957424943:web:a733a7d5fa49c8a66725da"
+    };
+       var provider = new firebase.auth.GoogleAuthProvider();
+       const app = firebase.initializeApp(firebaseConfig);
+ </script>
+     <script>
+    const db = firebase.firestore();
+    let cont = document.getElementById("cont")
+    let infos;
+
+        
+    // Initialize a counter variable
+    let userCount = 0;
+
+    function looop() {
+        // Retrieve data from Firestore after initializing Firebase
+        const citiesRef = db.collection("post");
+
+        citiesRef.get().then((querySnapshot) => {
+            // Clear the old names by setting cont's innerHTML to an empty string
+            cont.innerHTML = "";
+            userCount = 0;
+
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                const username = data.username;
+
+                // Check if "username" exists and is not empty
+                if (username) {
+                    // Increment the userCount and display it with the username
+                    userCount++;
+                    cont.innerHTML += `<div class="container fs-5 bamm"> 
+                    P${userCount}: ${username}
+                </div>
+                <br>`;
+                } else {
+                    // Handle the case where "username" is missing or empty
+                    console.log("Username is missing or empty:", username);
+                }
+            });
+        }).catch((error) => {
+            console.log("Error getting documents: ", error);
+        });
+    }
+
+    // Call the looop function every 2 seconds (2000 milliseconds)
+    const intervalId = setInterval(looop, 2000);
+    looop()
+
+    async function fetchQue(){
+        var docRef = db.collection("just").doc("LA");
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+                if(doc.data().hasStarted == true){
+                    clearInterval(checker)
+                    window.location.href = "playerQuiz.html"
+                }
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+    }
+
+    let checker = setInterval(()=>{
+        fetchQue()
+    },100)
+
+
+    
+    </script>

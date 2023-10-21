@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+</head>
+<body>
+    <h1>Quiz Game</h1>
+    <div id="pin-container">
+        <label for="pin">Enter PIN:</label>
+        <input type="text" id="pin" />
+        <button onclick="joinGame()">Join Game</button>
+    </div>
+    <div id="quiz-container" style="display: none;">
+        <p id="question"></p>
+        <ul id="answers"></ul>
+        <p id="timer">Time Left: 10s</p>
+    </div>
+    <div id="result-container" style="display: none;">
+        <h2>Results</h2>
+        <ul id="results"></ul>
+    </div>
+
+    <script>
+        const pinContainer = document.getElementById('pin-container');
+        const quizContainer = document.getElementById('quiz-container');
+        const questionElement = document.getElementById('question');
+        const answerElement = document.getElementById('answers');
+        const timerElement = document.getElementById('timer');
+        const resultContainer = document.getElementById('result-container');
+        const resultElement = document.getElementById('results');
+
+        let currentQuestionIndex = 0;
+        let users = [];
+        let scores = {};
+
+        const quizData = [
+            {
+                question: "What is the capital of France?",
+                answers: ["Paris", "Berlin", "Madrid"],
+                correct: "Paris"
+            },
+            {
+                question: "Which planet is known as the Red Planet?",
+                answers: ["Earth", "Mars", "Jupiter"],
+                correct: "Mars"
+            },
+            // Add more questions here...
+        ];
+
+        function joinGame() {
+            const enteredPin = document.getElementById('pin').value;
+            if (!enteredPin) return;
+
+            // Simulate server-side logic to validate the PIN.
+            if (!validatePin(enteredPin)) {
+                alert("Invalid PIN. Please try again.");
+                return;
+            }
+
+            pinContainer.style.display = 'none';
+            quizContainer.style.display = 'block';
+            startQuiz();
+        }
+
+        function validatePin(enteredPin) {
+            // Simulated server-side PIN validation.
+            return true;
+        }
+
+        function startQuiz() {
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function loadQuestion(index) {
+            if (index < quizData.length) {
+                const question = quizData[index];
+                questionElement.textContent = question.question;
+                answerElement.innerHTML = '';
+                question.answers.forEach(answer => {
+                    const li = document.createElement('button');
+                    li.textContent = answer;
+                    li.addEventListener('click', () => checkAnswer(answer, question.correct));
+                    answerElement.appendChild(li);
+                });
+                startTimer();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function startTimer() {
+            let timeLeft = 10;
+            timerElement.textContent = `Time Left: ${timeLeft}s`;
+            const timer = setInterval(() => {
+                timeLeft--;
+                if (timeLeft >= 0) {
+                    timerElement.textContent = `Time Left: ${timeLeft}s`;
+                } else {
+                    clearInterval(timer);
+                    loadNextQuestion();
+                }
+            }, 1000);
+        }
+
+        function checkAnswer(selectedAnswer, correctAnswer) {
+            if (selectedAnswer === correctAnswer) {
+                const user = getCurrentUser();
+                scores[user] = (scores[user] || 0) + 1;
+            }
+        }
+
+        function loadNextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion(currentQuestionIndex);
+            } else {
+                endQuiz();
+            }
+        }
+
+        function getCurrentUser() {
+            // Simulated user identification (replace with actual user authentication).
+            return `User${users.length + 1}`;
+        }
+
+        function endQuiz() {
+            quizContainer.style.display = 'none';
+            resultContainer.style.display = 'block';
+
+            // Sort scores from highest to lowest.
+            const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+
+            resultElement.innerHTML = sortedScores.map(([user, score]) => `<li>${user}: ${score}</li>`).join('');
+        }
+    </script>
+</body>
+</html>
