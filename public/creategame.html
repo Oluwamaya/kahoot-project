@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-storage-compat.js"></script>
+
+</head>
+<body>
+    <main class="container bg-info mx-auto text-center mt-2 p-3" style="width: fit-content;">
+        <form action="">
+            <div class="w-75 container">
+                <input id="quest" class="w-100 p-3 my-3 mx-auto" type="text" placeholder="your question">
+                <input id="options1" class=" p-2 my-1" type="text" placeholder="first option">
+                <input id="options2" class=" p-2 my-1" type="text" placeholder="second option">
+                <input id="options3" class=" p-2 my-1" type="text" placeholder="third option">
+                <input id="options4" class=" p-2 my-1" type="text" placeholder="fourth option"> <br> <br>
+                <input id="rAnswer" type="text" class="mt-2 p-2" placeholder="Right answer">
+            </div>
+            <button class="btn btn-success mt-3" onclick="saves(event)">Save</button>
+            <button class="btn btn-success mt-3" onclick="submits(event)">Submit</button>
+        </form>
+    </main>
+</body>
+</html>
+
+<script> 
+    const firebaseConfig = {
+    apiKey: "AIzaSyDtpT23EPLkTS9kfEf6Aa02Wli2Ehgfpqw",
+    authDomain: "isammy-k.firebaseapp.com",
+    projectId: "isammy-k",
+    storageBucket: "isammy-k.appspot.com",
+    messagingSenderId: "243915862365",
+    appId: "1:243915862365:web:e0c543ab2caf0ed241b8b4",
+   };
+      var provider = new firebase.auth.GoogleAuthProvider();
+      const app = firebase.initializeApp(firebaseConfig);
+ </script>
+<script>
+    const db = firebase.firestore();
+
+    const codee = Math.floor(Math.random() * 100);
+    console.log(`man${codee}`) 
+    let quest = document.getElementById("quest")
+    let options1 = document.getElementById("options1")
+    let options2 = document.getElementById("options2")
+    let options3 = document.getElementById("options3")
+    let options4 = document.getElementById("options4")
+    let rAnswer = document.getElementById("rAnswer")
+    let userQuiz = []
+    let userQuizs = []
+
+    function saves(ev) {
+    ev.preventDefault();
+    let myQuiz = {
+        myquestion: quest.value,
+        options1: options1.value,
+        options2: options2.value,
+        options3: options3.value,
+        options4: options4.value,
+        rAnswer: rAnswer.value
+    };
+    quest.value = "";
+    options1.value = "";
+    options2.value = "";
+    options3.value = "";
+    options4.value = "";
+    rAnswer.value = "";
+
+    userQuiz.push(myQuiz); // Push the quiz into the array after clearing the input fields
+    localStorage.setItem("userQuiz", JSON.stringify(userQuiz)); // Save the updated array to local storage
+}
+
+function submits(ev) {
+    ev.preventDefault();
+    userQuizs = JSON.parse(localStorage.getItem("userQuiz")) || [];
+    console.log(userQuizs);
+
+    // Add a new document in collection "testQuiz"
+    db.collection(`testquiz`).doc().set({
+        teser: userQuizs
+    })
+    .then(() => {
+        console.log("Document successfully written!");
+        localStorage.clear(); // Clear localStorage after successfully submitting the quiz
+    })
+    .catch((error) => {
+        console.error("Error writing document: ", error);
+    });
+}
+
+</script>

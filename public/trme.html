@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Click and Double Click Example</title>
+</head>
+<body>
+    <button id="myButton">Click Me</button>
+    <button id="testButton">press Me</button>
+
+    <script>
+        // Get a reference to the button element
+        const myButton = document.getElementById("myButton");
+
+        // Add a click event listener
+        myButton.onclick = function() {
+            alert("Single click!");
+        };
+
+        // Add a double click event listener
+        myButton.ondblclick = function() {
+            alert("Double click!");
+        };
+
+
+
+window.onload = function() {
+  var timer;
+  var el = document.getElementById('testButton');
+
+  el.onclick = function() {
+    timer = setTimeout(function() { alert('Single'); }, 650);        
+    clearTimeout(timer); 
+}
+
+el.ondblclick = function() {
+    alert('Double');
+  }
+}
+    </script>
+</body>
+</html>

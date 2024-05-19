@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Quiz Game</title>
+</head>
+<body>
+    <div id="quiz-container">
+        <div id="question-container">
+            <p id="question-text"></p>
+        </div>
+        <div id="answer-container">
+            <!-- Populate answer options dynamically with JavaScript -->
+        </div>
+        <div id="timer-container">
+            <p id="timer"></p>
+        </div>
+        <div id="leaderboard-container">
+            <!-- Display leaderboard here -->
+        </div>
+    </div>
+    <script>
+        // Sample questions and answers
+const quizData = [
+    {
+        question: "What is the capital of France?",
+        answers: ["Paris", "London", "Berlin", "Madrid"],
+        correct: 0,
+    },
+    {
+        question: "Which planet is known as the Red Planet?",
+        answers: ["Earth", "Venus", "Mars", "Jupiter"],
+        correct: 2,
+    },
+    // Add more questions here
+];
+
+const quizContainer = document.getElementById("quiz-container");
+const questionText = document.getElementById("question-text");
+const answerContainer = document.getElementById("answer-container");
+const timerElement = document.getElementById("timer");
+const leaderboardContainer = document.getElementById("leaderboard-container");
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+// Function to load a question
+function loadQuestion(questionIndex) {
+    if (questionIndex < quizData.length) {
+        const question = quizData[questionIndex];
+        questionText.textContent = question.question;
+
+        // Clear previous answer options
+        answerContainer.innerHTML = "";
+
+        // Populate answer options
+        question.answers.forEach((answer, index) => {
+            const answerButton = document.createElement("button");
+            answerButton.textContent = answer;
+            answerButton.addEventListener("click", () => {
+                checkAnswer(index);
+            });
+            answerContainer.appendChild(answerButton);
+        });
+
+        // Start the timer for this question
+        startTimer(10);
+    } else {
+        // Quiz is over, display leaderboard
+        displayLeaderboard();
+    }
+}
+
+// Function to check the selected answer
+function checkAnswer(selectedIndex) {
+    const currentQuestion = quizData[currentQuestionIndex];
+    if (selectedIndex === currentQuestion.correct) {
+        score++;
+        // Change background color for correct answer (you can add CSS classes for this)
+        answerContainer.style.backgroundColor = "green";
+    } else {
+        // Change background color for wrong answer (you can add CSS classes for this)
+        answerContainer.style.backgroundColor = "red";
+    }
+
+    // Move to the next question after a delay
+    setTimeout(() => {
+        answerContainer.style.backgroundColor = ""; // Reset background color
+        currentQuestionIndex++;
+        loadQuestion(currentQuestionIndex);
+    }, 1000); // Delay in milliseconds
+}
+
+// Function to start the timer
+function startTimer(seconds) {
+    let timeLeft = seconds;
+    timerElement.textContent = `Time: ${timeLeft} seconds`;
+
+    const timerInterval = setInterval(() => {
+        timeLeft--;
+        timerElement.textContent = `Time: ${timeLeft} seconds`;
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            // Move to the next question automatically when the timer runs out
+            currentQuestionIndex++;
+            loadQuestion(currentQuestionIndex);
+        }
+    }, 1000); // Update every second
+}
+
+// Function to display the leaderboard
+function displayLeaderboard() {
+    // Sort and display scores from highest to lowest
+    leaderboardContainer.innerHTML = `<h2>Leaderboard</h2>`;
+    const sortedScores = [...quizData].sort((a, b) => b.score - a.score);
+    sortedScores.forEach((question, index) => {
+        leaderboardContainer.innerHTML += `<p>${index + 1}. Score: ${question.score}</p>`;
+    });
+}
+
+// Start the quiz by loading the first question
+loadQuestion(currentQuestionIndex);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+</head>
+<body>
+    <h1>Quiz Game</h1>
+    <div id="start-container">
+        <button onclick="generateGamePin()">Generate Game PIN</button>
+        <p>Enter Game PIN:</p>
+        <input type="text" id="game-pin" />
+        <button onclick="joinGame()">Join Game</button>
+    </div>
+    <div id="quiz-container" style="display: none;">
+        <p id="question"></p>
+        <ul id="answers"></ul>
+        <p id="timer">Time Left: 10s</p>
+    </div>
+    <div id="result-container" style="display: none;">
+        <h2>Results</h2>
+        <ul id="results"></ul>
+    </div>
+
+    <script>
+        const startContainer = document.getElementById('start-container');
+        const quizContainer = document.getElementById('quiz-container');
+        const questionElement = document.getElementById('question');
+        const answerElement = document.getElementById('answers');
+        const timerElement = document.getElementById('timer');
+        const resultContainer = document.getElementById('result-container');
+        const resultElement = document.getElementById('results');
+        
+        const quizData = [
+            {
+                question: "What is the capital of France?",
+                answers: ["Paris", "Berlin", "Madrid"],
+                correct: "Paris"
+            },
+            {
+                question: "Which planet is known as the Red Planet?",
+                answers: ["Earth", "Mars", "Jupiter"],
+                correct: "Mars"
+            },
+            {
+                question: "Which planet is wale?",
+                answers: ["four", "two", "seven"],
+                correct: "two"
+            },
+            {
+                question: "Which is my best food?",
+                answers: ["rice", "beans", "fish"],
+                correct: "fish"
+            },
+            {
+                question: "Who is yur friend",
+                answers: ["fm", "anon", "wale"],
+                correct: "wale"
+            },
+            // Add more questions here...
+        ];
+
+        let currentQuestionIndex = 0;
+        let currentGamePin = null;
+        let users = {};
+        let scores = {};
+
+        function generateGamePin() {
+            currentGamePin = generateRandomPin();
+            alert(`Game PIN: ${currentGamePin}`);
+        }
+
+        function generateRandomPin() {
+            return Math.floor(Math.random() * 9000) + 1000;
+        }
+
+        function joinGame() {
+            const enteredPin = document.getElementById('game-pin').value;
+            if (enteredPin !== currentGamePin.toString()) {
+                alert("Invalid Game PIN. Please try again.");
+                return;
+            }
+
+            startContainer.style.display = 'none';
+            quizContainer.style.display = 'block';
+
+            const userName = prompt("Enter your username:");
+            if (!userName) {
+                alert("Invalid username. Please try again.");
+                return;
+            }
+
+            users[userName] = 0;
+            loadQuestion(currentQuestionIndex);
+        }
+
+        function loadQuestion(index) {
+            if (index < quizData.length) {
+                const question = quizData[index];
+                questionElement.textContent = question.question;
+                answerElement.innerHTML = '';
+                question.answers.forEach(answer => {
+                    const li = document.createElement('button');
+                    li.style.backgroundColor = 'teal'
+                    li.style.color = 'white'
+                    li.style.border = 'none'
+                    li.style.borderRadius = '5px'
+                    li.style.padding = '12px'
+                    li.style.marginLeft = '12px'
+                    li.style.cursor = 'pointer'
+                    li.textContent = answer;
+                    li.addEventListener('click', () => checkAnswer(answer, question.correct));
+                    answerElement.appendChild(li);
+                });
+                startTimer();
+            } else {
+                endQuiz();
+            }
+        }
+
+        function startTimer() {
+            let timeLeft = 10;
+            timerElement.textContent = `Time Left: ${timeLeft}s`;
+            const timer = setInterval(() => {
+                timeLeft--;
+                if (timeLeft >= 0) {
+                    timerElement.textContent = `Time Left: ${timeLeft}s`;
+                } else {
+                    clearInterval(timer);
+                    loadNextQuestion();
+                }
+            }, 500);
+        }
+
+        function checkAnswer(selectedAnswer, correctAnswer) {
+            if (selectedAnswer === correctAnswer) {
+                const userName = Object.keys(users).find(key => users[key] === 0);
+                if (userName) {
+                    users[userName]++;
+                }
+            }
+        }
+
+        function loadNextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion(currentQuestionIndex);
+            } else {+
+                endQuiz();
+            }
+        }
+
+        function endQuiz() {
+            quizContainer.style.display = 'none';
+            resultContainer.style.display = 'block';
+
+            // Calculate scores.
+            for (const userName in users) {
+                scores[userName] = users[userName];
+            }
+
+            // Sort scores from highest to lowest.
+            const sortedScores = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+
+            resultElement.innerHTML = sortedScores.map(([user, score]) => `<li>${user}: ${score}</li>`).join('');
+        }
+    </script>
+</body>
+</html>
