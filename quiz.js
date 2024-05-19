@@ -1573,7 +1573,7 @@ function showQue() {
       opt.innerHTML += `
       <div class="mot mt-2 d-flex align-items-center rounded-2">
               <span class="d-flex align-items-center text-center justify-content-center" id=" boss" style="width: 100vw; height:100%;">
-            <label class="kill w-100 fw-bold text-white rounded-2">${currentopt[i]}
+            <label class="kill w-100 fw-bold text-dark rounded-2">${currentopt[i]}
             <input onchange="pickAns(event, ${i})" id="mang" value="${currentopt[i]}" name="maya" type="radio"/>
             </label>
             </span>
