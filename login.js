@@ -1,12 +1,13 @@
 
   // Import the functions you need from the SDKs you nee
   const firebaseConfig = {
-    apiKey: "AIzaSyBIxDzSewXm5Fc6sfR0A_zgGnt36rJNpTg",
-    authDomain: "kahoot-project-d09b7.firebaseapp.com",
-    projectId: "kahoot-project-d09b7",
-    storageBucket: "kahoot-project-d09b7.appspot.com",
-    messagingSenderId: "650529307688",
-    appId: "1:650529307688:web:5f5492c01db78912d9891d"
+    apiKey: "AIzaSyAO2aEfhbla0c7_Z7XzP-mQMyof3dZWfrM",
+    authDomain: "ktdbad.firebaseapp.com",
+    databaseURL: "https://ktdbad-default-rtdb.firebaseio.com",
+    projectId: "ktdbad",
+    storageBucket: "ktdbad.appspot.com",
+    messagingSenderId: "772957424943",
+    appId: "1:772957424943:web:a733a7d5fa49c8a66725da"
   };
 
   // Initialize Firebase

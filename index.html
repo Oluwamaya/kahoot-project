@@ -3,205 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Play game</title>
+    <link rel="shortcut icon" href="gengen.jpg" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="index.css">
-    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
+<style>
+    body{
+        /* background: linear-gradient(to bottom, grey, purple, gray, purple); */
+    }
+
+        .input-wrapper input {
+        background-color: #eee;
+        border: none;
+        padding: 1rem;
+        font-size: 1rem;
+        width: 100%;
+        border-radius: 1rem;
+        color: rgb(2, 2, 2);
+        box-shadow: 0 0.2rem #131111;
+        cursor: pointer;
+        }
+
+        .input-wrapper input:focus {
+        outline-color: rgb(32, 31, 31);
+        }
+
+        button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 10px;
+  color: white;
+  text-shadow: 2px 2px rgb(116, 116, 116);
+  text-transform: uppercase;
+  border: solid 2px black;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 17px;
+  background-color: rgb(94,24,237);
+  border-radius: 50px;
+  position: relative;
+  overflow: hidden;
+  transition: all .5s ease;
+}
+
+button:active {
+  transform: scale(.9);
+  transition: all 100ms ease;
+}
+
+button svg {
+  transition: all .5s ease;
+  z-index: 2;
+}
+
+.play {
+  transition: all .5s ease;
+  transition-delay: 300ms;
+}
+
+button:hover svg {
+  transform: scale(3) translate(50%);
+}
+
+.now {
+  position: absolute;
+  left: 0;
+  transform: translateX(-100%);
+  transition: all .5s ease;
+  z-index: 2;
+}
+
+button:hover .now {
+  transform: translateX(10px);
+  transition-delay: 300ms;
+}
+
+button:hover .play {
+  transform: translateX(200%);
+  transition-delay: 300ms;
+}
+
+</style>
 
 </head>
 <body>
-    <nav class="navbar bg-white shadow-lg sticky-top" >
-        <div class="d-flex align-items-center" style=" height: 10vh;">
-          <a class="navbar-brand" href="#">
-            <img class="img-fluid" src="isammyy-removebg-preview.png" alt="Bootstrap" width="100" height="49" id="isam">
-            <img class="img-fluid" src="iss-removebg-preview.png" alt="Bootstrap" width="120" height="49" id="icome">
-          </a>
-        </div>
-      </nav>
-      <main class="mainn">
-        <div class="mx-auto text pt-2 bagg" id="bag">
-            <b class="mt-2 fs-3 d-flex justify-content-center">Create an account</b>
-            <div class="card bg-white mx-auto h-75 mt-4 py-3" style="width: 100%; box-shadow: 1px 1px 4px 2px gray;" >
-                <b class="fs-5 text-center py-3">Sign up with an email</b>
-                <div class="container py-1">
-                    <label for="email"><b>Email</b></label>
-                    <input class="my-1" id="email" type="email" style="height: 6vh; width: 100%; outline: none; border-radius: 5px; border: 1px solid black;">
-                </div>
+    <main class="mx-auto mt-5" style="width: max-content;">
+        <div class="w-100 mx-auto"><img src="isammyy-removebg-preview.png" alt="" style="width: 100%; height: 35vh;"></div>
+        <div class="conatainer card mx-auto p-3" style="background-color: rgb(130, 120, 147);">
+            <div class="input-wrapper my-3 w-100">
+                <input type="text" id="coded" oninput="this.value = this.value.replace(/[^0-9]/g, '')"  class="input outline-none " placeholder="Game Pin" >
 
-                <div class="container py-1">
-                    <label for="Username"><b>Username</b></label>
-                    <input class="my-1" id="username" type="text" style="height: 6vh; width: 100%; outline: none; border-radius: 5px; border: 1px solid black;">
-                </div>
-
-                <div class="container py-1">
-                    <label for="password"><b>Password</b></label>
-                    <div class="d-flex" style="border: 1px solid black; border-radius: 4px;">
-                    <input class="my-1" id="password" type="password" placeholder="*******" style="width: 90%; border: none; outline: none;">
-                    <div style="width: 8%; height: 6vh; display: flex; align-items: center;">
-                    <img class="img-fluid" src="eyeclose-removebg-preview.png" width="40" alt="" id="eyeicon">
-                    </div>
-                    </div>                    
-                </div>
-                <div class="container">
-                <button id="signs" class="btn btn-secondary w-100 mt-2" onclick="signup(event)">Sign up</button>
-                <button class="btn btn-success w-100" id="butt" type="button" style="display: none;">
-                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                    <span role="status">Signing up...</span>
-                  </button>
-                </div>
-                <main class="container w-100  d-flex align-items-center mt-2">
-                    <div class="w-50"><hr></div>
-                    <b>or</b> 
-                    <div class="w-50"><hr></div>
-                </main>
-                <div class="container">
-                    <button onclick="signG(event)" class="btn w-100 d-flex my-2" style="border: 1px solid black;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="m6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
-                        <div class="container w-75 text-center">
-                        <b class="">Continue with google</b>
-                        </div>
-                    </button>
-
-                    <button class="btn w-100 d-flex my-2" style="border: 1px solid black;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 256 256"><path fill="#F1511B" d="M121.666 121.666H0V0h121.666z"/><path fill="#80CC28" d="M256 121.666H134.335V0H256z"/><path fill="#00ADEF" d="M121.663 256.002H0V134.336h121.663z"/><path fill="#FBBC09" d="M256 256.002H134.335V134.336H256z"/></svg>
-                        <div class="container w-75 text-center">
-                        <b class="">Continue with Microsoft</b>
-                        </div>
-                    </button>
-
-                    <button class="btn w-100 d-flex my-2" style="border: 1px solid black;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 128 128"><path d="M97.905 67.885c.174 18.8 16.494 25.057 16.674 25.137c-.138.44-2.607 8.916-8.597 17.669c-5.178 7.568-10.553 15.108-19.018 15.266c-8.318.152-10.993-4.934-20.504-4.934c-9.508 0-12.479 4.776-20.354 5.086c-8.172.31-14.395-8.185-19.616-15.724C15.822 94.961 7.669 66.8 18.616 47.791c5.438-9.44 15.158-15.417 25.707-15.571c8.024-.153 15.598 5.398 20.503 5.398c4.902 0 14.106-6.676 23.782-5.696c4.051.169 15.421 1.636 22.722 12.324c-.587.365-13.566 7.921-13.425 23.639M82.272 21.719c4.338-5.251 7.258-12.563 6.462-19.836c-6.254.251-13.816 4.167-18.301 9.416c-4.02 4.647-7.54 12.087-6.591 19.216c6.971.54 14.091-3.542 18.43-8.796"/></svg>
-                        <div class="container w-75 text-center">
-                        <b class="">Continue with Apple</b>
-                        </div>
-                    </button>
-
-                    <button class="btn w-100 d-flex my-2" style="border: 1px solid black;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 128 128"><path fill="#1d9bf0" d="M114.896 37.888c.078 1.129.078 2.257.078 3.396c0 34.7-26.417 74.72-74.72 74.72v-.02A74.343 74.343 0 0 1 0 104.21c2.075.25 4.16.375 6.25.38a52.732 52.732 0 0 0 32.615-11.263A26.294 26.294 0 0 1 14.331 75.09c3.937.76 7.993.603 11.857-.453c-12.252-2.475-21.066-13.239-21.066-25.74v-.333a26.094 26.094 0 0 0 11.919 3.287C5.5 44.139 1.945 28.788 8.913 16.787a74.535 74.535 0 0 0 54.122 27.435a26.277 26.277 0 0 1 7.598-25.09c10.577-9.943 27.212-9.433 37.154 1.139a52.696 52.696 0 0 0 16.677-6.376A26.359 26.359 0 0 1 112.92 28.42A52.227 52.227 0 0 0 128 24.285a53.35 53.35 0 0 1-13.104 13.603z"/></svg>
-                        <div class="container w-75 text-center">
-                        <b class="">Continue with Twitter</b>
-                        </div>
-                    </button>
-                    <div class="mt-4 text-center">
-                        <p>Already have am account?<a href="login.html">Log in</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container mx-auto text-center text-secondary kegg mt-2">
-            <p>
-                By signing up, you accept our <a href="">Terms and Conditions</a>. Please <br> read our Privacy Policy and <a href="">Children’s Privacy Policy</a>. <br><br>
-                I understand that I can withdraw my consent at any time and <br> the withdrawal will not affect the lawfulness of the consent <br> before its withdrawal, as described in the !Sammy <a href="">Privacy Policy.</a>
-            </p>
+              </div>
+            <button onclick="playy(event)">
+                <svg height="36px" width="36px" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                    <rect fill="#5e18ed" y="0" x="0" height="36" width="36"></rect>
+                    <path d="M38.67,42H11.52C11.27,40.62,11,38.57,11,36c0-5,0-11,0-11s1.44-7.39,3.22-9.59 c1.67-2.06,2.76-3.48,6.78-4.41c3-0.7,7.13-0.23,9,1c2.15,1.42,3.37,6.67,3.81,11.29c1.49-0.3,5.21,0.2,5.5,1.28 C40.89,30.29,39.48,38.31,38.67,42z" fill="#e53935"></path>
+                    <path d="M39.02,42H11.99c-0.22-2.67-0.48-7.05-0.49-12.72c0.83,4.18,1.63,9.59,6.98,9.79 c3.48,0.12,8.27,0.55,9.83-2.45c1.57-3,3.72-8.95,3.51-15.62c-0.19-5.84-1.75-8.2-2.13-8.7c0.59,0.66,3.74,4.49,4.01,11.7 c0.03,0.83,0.06,1.72,0.08,2.66c4.21-0.15,5.93,1.5,6.07,2.35C40.68,33.85,39.8,38.9,39.02,42z" fill="#b71c1c"></path>
+                    <path d="M35,27.17c0,3.67-0.28,11.2-0.42,14.83h-2C32.72,38.42,33,30.83,33,27.17 c0-5.54-1.46-12.65-3.55-14.02c-1.65-1.08-5.49-1.48-8.23-0.85c-3.62,0.83-4.57,1.99-6.14,3.92L15,16.32 c-1.31,1.6-2.59,6.92-3,8.96v10.8c0,2.58,0.28,4.61,0.54,5.92H10.5c-0.25-1.41-0.5-3.42-0.5-5.92l0.02-11.09 c0.15-0.77,1.55-7.63,3.43-9.94l0.08-0.09c1.65-2.03,2.96-3.63,7.25-4.61c3.28-0.76,7.67-0.25,9.77,1.13 C33.79,13.6,35,22.23,35,27.17z" fill="#212121"></path>
+                    <path d="M17.165,17.283c5.217-0.055,9.391,0.283,9,6.011c-0.391,5.728-8.478,5.533-9.391,5.337 c-0.913-0.196-7.826-0.043-7.696-5.337C9.209,18,13.645,17.32,17.165,17.283z" fill="#01579b"></path>
+                    <path d="M40.739,37.38c-0.28,1.99-0.69,3.53-1.22,4.62h-2.43c0.25-0.19,1.13-1.11,1.67-4.9 c0.57-4-0.23-11.79-0.93-12.78c-0.4-0.4-2.63-0.8-4.37-0.89l0.1-1.99c1.04,0.05,4.53,0.31,5.71,1.49 C40.689,24.36,41.289,33.53,40.739,37.38z" fill="#212121"></path>
+                    <path d="M10.154,20.201c0.261,2.059-0.196,3.351,2.543,3.546s8.076,1.022,9.402-0.554 c1.326-1.576,1.75-4.365-0.891-5.267C19.336,17.287,12.959,16.251,10.154,20.201z" fill="#81d4fa"></path>
+                    <path d="M17.615,29.677c-0.502,0-0.873-0.03-1.052-0.069c-0.086-0.019-0.236-0.035-0.434-0.06 c-5.344-0.679-8.053-2.784-8.052-6.255c0.001-2.698,1.17-7.238,8.986-7.32l0.181-0.002c3.444-0.038,6.414-0.068,8.272,1.818 c1.173,1.191,1.712,3,1.647,5.53c-0.044,1.688-0.785,3.147-2.144,4.217C22.785,29.296,19.388,29.677,17.615,29.677z M17.086,17.973 c-7.006,0.074-7.008,4.023-7.008,5.321c-0.001,3.109,3.598,3.926,6.305,4.27c0.273,0.035,0.48,0.063,0.601,0.089 c0.563,0.101,4.68,0.035,6.855-1.732c0.865-0.702,1.299-1.57,1.326-2.653c0.051-1.958-0.301-3.291-1.073-4.075 c-1.262-1.281-3.834-1.255-6.825-1.222L17.086,17.973z" fill="#212121"></path>
+                    <path d="M15.078,19.043c1.957-0.326,5.122-0.529,4.435,1.304c-0.489,1.304-7.185,2.185-7.185,0.652 C12.328,19.467,15.078,19.043,15.078,19.043z" fill="#e1f5fe"></path>
+                </svg>
+                <span class="now">now!</span>
+                <span class="play">play</span>
+            </button>
         </div>
       </main>
+      <div class="conatainer w-75 mx-auto mt-2 text-center fs-6">
+        <p>
+          Crete your own iSammy at <a href="signup.html">iSammy.com</a>
+        </p>
+      </div>
+
+      <!-- <main class="row">
+        <div class="col-sm-4 bg-danger ">big</div>
+        <div class="col-sm-3 bg-black h-25">small</div>
+      </main> -->
 </body>
 </html>
 <script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyDtpT23EPLkTS9kfEf6Aa02Wli2Ehgfpqw",
-    authDomain: "isammy-k.firebaseapp.com",
-    projectId: "isammy-k",
-    storageBucket: "isammy-k.appspot.com",
-    messagingSenderId: "243915862365",
-    appId: "1:243915862365:web:e0c543ab2caf0ed241b8b4",
-   };
-      const app = firebase.initializeApp(firebaseConfig);
-      var provider = new firebase.auth.GoogleAuthProvider();
-</script>
+     const firebaseConfig = {
+    apiKey: "AIzaSyAO2aEfhbla0c7_Z7XzP-mQMyof3dZWfrM",
+    authDomain: "ktdbad.firebaseapp.com",
+    databaseURL: "https://ktdbad-default-rtdb.firebaseio.com",
+    projectId: "ktdbad",
+    storageBucket: "ktdbad.appspot.com",
+    messagingSenderId: "772957424943",
+    appId: "1:772957424943:web:a733a7d5fa49c8a66725da"
+  };
+       var provider = new firebase.auth.GoogleAuthProvider();
+       const app = firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      var storageRef = firebase.storage().ref();
+ </script>
 
 <script>
-    let email = document.getElementById("email")
-    let password = document.getElementById("password")
-    let eyeicon = document.getElementById("eyeicon");
-    let signs = document.getElementById("signs");
-      eyeicon.onclick = function(){
-            if(password.type == "password"){
-                password.type = "text";
-                eyeicon.src = "eyeopen-removebg-preview.png"
-            }else{
-                password.type = "password";
-                eyeicon.src = "eyeclose-removebg-preview.png"
-            }
-        }
-        signs.disabled = false;
+  let reloadTimeout;
 
-        function disa(){
-            if(email.value == "" | password.value == ""){
-                signs.disabled = true;
-                signs.style.cursor = "not-allowed";
-            }
-            else{
-                signs.disabled = false;
-                signs.style.background = "green"
-                 signs.style.cursor = "pointer";
-            }
-        }
-        email.addEventListener("input", disa);
-        password.addEventListener("input", disa);
-        disa()
-    
-      function signup(ev){
-        ev.preventDefault();
-        butt.style.display = "block";
-        signs.style.display = "none";
-        console.log(email.value);
-        console.log(password.value);
-        
-        firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
-        .then((userCredential) => {
-            // Signed in 
-            var user = userCredential.user;
-            user.updateProfile({
-            displayName: username.value,
-            }).then(() => {
-              console.log(user)
-            }).catch((error) => {
-            // An error occurred
-            // ...
-            });  
-            alert("Successful");
-            butt.style.display = "none";
-            signs.style.display = "block";
-            window.location.href = "login.html";
-        })
-        .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorMessage);
-            alert(errorMessage);
-            butt.style.display = "none";
-            signs.style.display = "block";
-        });
+reloadTimeout = setTimeout(() => {
+  location.reload();
+}, 1000);
+clearTimeout(reloadTimeout);
+
+    let coded =  document.getElementById("coded")
+//     let allQues
+
+//     function load(){
+//     var collectionRef = db.collection(gamePinInput);
+//     collectionRef.get().then(function(querySnapshot) {
+//     querySnapshot.forEach(function(doc) {
+//       allQues = doc.data()
+//         console.log(doc.id, ' => ', doc.data());
+//     });
+// }).catch(function(error) {
+//     console.log("Error getting documents: ", error);
+// });
+//   }
+ // load()
+
+    async function playy(ev) {
+    ev.preventDefault();
+
+    let userPin = coded.value.trim();
+
+    if (userPin === "") {
+        alert("Input field cannot be empty");
+        return;
     }
 
-    function signG(ev){
-        ev.preventDefault()
-        firebase.auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-            /** @type {firebase.auth.OAuthCredential} */
-            var credential = result.credential;
+    try {
+        var collectionRef = db.collection(userPin);
+        let querySnapshot = await collectionRef.get();
+        let quiz = null;
 
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            var token = credential.accessToken;
-            // The signed-in user info.
-            var user = result.user;
-            // IdP data available in result.additionalUserInfo.profile.
-            alert("Successful")
-            window.location.href = "login.html"
-        }).catch((error) => {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            alert("error")
-            console.log(errorMessage)
+        querySnapshot.forEach(function (doc) {
+            quiz = doc.data();
+            console.log(doc.id, ' => ', doc.data());
         });
 
+        if (quiz) {
+            console.log("Found quiz");
+            localStorage.setItem("userPin", userPin)
+            window.location.href = "avatar.html"
+        } else {
+            alert(`Quiz not found for ${userPin}`);
+        }
+    } catch (error) {
+        console.log("Error getting documents: ", error);
     }
+}
+
 </script>

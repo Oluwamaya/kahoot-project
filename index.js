@@ -1,12 +1,13 @@
 
-    const firebaseConfig = {
-    apiKey: "AIzaSyDtpT23EPLkTS9kfEf6Aa02Wli2Ehgfpqw",
-    authDomain: "isammy-k.firebaseapp.com",
-    projectId: "isammy-k",
-    storageBucket: "isammy-k.appspot.com",
-    messagingSenderId: "243915862365",
-    appId: "1:243915862365:web:e0c543ab2caf0ed241b8b4",
-   };
+const firebaseConfig = {
+    apiKey: "AIzaSyAO2aEfhbla0c7_Z7XzP-mQMyof3dZWfrM",
+    authDomain: "ktdbad.firebaseapp.com",
+    databaseURL: "https://ktdbad-default-rtdb.firebaseio.com",
+    projectId: "ktdbad",
+    storageBucket: "ktdbad.appspot.com",
+    messagingSenderId: "772957424943",
+    appId: "1:772957424943:web:a733a7d5fa49c8a66725da"
+  };
     var provider = new firebase.auth.GoogleAuthProvider();
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in</title>
+    <title>Sign Up</title>
     <link rel="shortcut icon" href="gengen.jpg" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="index.css">
@@ -23,12 +23,19 @@
       </nav>
       <main class="mainn">
         <div class="mx-auto text pt-2 bagg" id="bag">
+            <b class="mt-2 fs-3 d-flex justify-content-center">Create an account</b>
             <div class="card bg-white mx-auto h-75 mt-4 py-3" style="width: 100%; box-shadow: 1px 1px 4px 2px gray;" >
-                <b class="fs-5 text-center py-3">Log in</b>
+                <b class="fs-5 text-center py-3">Sign up with an email</b>
                 <div class="container py-1">
                     <label for="email"><b>Email</b></label>
-                    <input class="my-1 px-2" id="email" type="email" placeholder="eg. MYS@gmail.com" style="height: 6vh; width: 100%; outline: none; border-radius: 5px; border: 1px solid black;">
+                    <input class="my-1 px-2" id="email" type="email" style="height: 6vh; width: 100%; outline: none; border-radius: 5px; border: 1px solid black;">
                 </div>
+
+                <div class="container py-1">
+                    <label for="Username"><b>Username</b></label>
+                    <input class="my-1 px-2" id="username" type="text" style="height: 6vh; width: 100%; outline: none; border-radius: 5px; border: 1px solid black;">
+                </div>
+
                 <div class="container py-1">
                     <label for="password"><b>Password</b></label>
                     <div class="d-flex" style="border: 1px solid black; border-radius: 4px;">
@@ -39,30 +46,47 @@
                     </div>                    
                 </div>
                 <div class="container">
-                <p class="fs-6 mt-2">Forgot password? <a href="index.html">click here</a></p>
-                <div class="container">
-                    <button id="signs" class="btn btn-secondary w-100 mt-2" onclick="login(event)">Log in</button>
-                    <button class="btn btn-success w-100" id="butt" type="button" style="display: none;">
-                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                        <span role="status">prepare for fun...</span>
-                      </button>
-                    </div>
+                <button id="signs" class="btn btn-secondary w-100 mt-2" onclick="signup(event)">Sign up</button>
+                <button class="btn btn-success w-100" id="butt" type="button" style="display: none;">
+                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                    <span role="status">Signing up...</span>
+                  </button>
                 </div>
                 <main class="container w-100  d-flex align-items-center mt-2">
                     <div class="w-50"><hr></div>
-                    <b>or</b>
+                    <b>or</b> 
                     <div class="w-50"><hr></div>
                 </main>
                 <div class="container">
-                    <button class="btn w-100 d-flex my-2" style="border: 1px solid black;">
+                    <button onclick="signG(event)" class="btn w-100 d-flex my-2" style="border: 1px solid black;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C12.955 4 4 12.955 4 24s8.955 20 20 20s20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="m6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4C16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
                         <div class="container w-75 text-center">
                         <b class="">Continue with google</b>
                         </div>
                     </button>
 
+                    <button class="btn w-100 d-flex my-2" style="border: 1px solid black;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 256 256"><path fill="#F1511B" d="M121.666 121.666H0V0h121.666z"/><path fill="#80CC28" d="M256 121.666H134.335V0H256z"/><path fill="#00ADEF" d="M121.663 256.002H0V134.336h121.663z"/><path fill="#FBBC09" d="M256 256.002H134.335V134.336H256z"/></svg>
+                        <div class="container w-75 text-center">
+                        <b class="">Continue with Microsoft</b>
+                        </div>
+                    </button>
+
+                    <button class="btn w-100 d-flex my-2" style="border: 1px solid black;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 128 128"><path d="M97.905 67.885c.174 18.8 16.494 25.057 16.674 25.137c-.138.44-2.607 8.916-8.597 17.669c-5.178 7.568-10.553 15.108-19.018 15.266c-8.318.152-10.993-4.934-20.504-4.934c-9.508 0-12.479 4.776-20.354 5.086c-8.172.31-14.395-8.185-19.616-15.724C15.822 94.961 7.669 66.8 18.616 47.791c5.438-9.44 15.158-15.417 25.707-15.571c8.024-.153 15.598 5.398 20.503 5.398c4.902 0 14.106-6.676 23.782-5.696c4.051.169 15.421 1.636 22.722 12.324c-.587.365-13.566 7.921-13.425 23.639M82.272 21.719c4.338-5.251 7.258-12.563 6.462-19.836c-6.254.251-13.816 4.167-18.301 9.416c-4.02 4.647-7.54 12.087-6.591 19.216c6.971.54 14.091-3.542 18.43-8.796"/></svg>
+                        <div class="container w-75 text-center">
+                        <b class="">Continue with Apple</b>
+                        </div>
+                    </button>
+
+                    <button class="btn w-100 d-flex my-2" style="border: 1px solid black;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 128 128"><path fill="#1d9bf0" d="M114.896 37.888c.078 1.129.078 2.257.078 3.396c0 34.7-26.417 74.72-74.72 74.72v-.02A74.343 74.343 0 0 1 0 104.21c2.075.25 4.16.375 6.25.38a52.732 52.732 0 0 0 32.615-11.263A26.294 26.294 0 0 1 14.331 75.09c3.937.76 7.993.603 11.857-.453c-12.252-2.475-21.066-13.239-21.066-25.74v-.333a26.094 26.094 0 0 0 11.919 3.287C5.5 44.139 1.945 28.788 8.913 16.787a74.535 74.535 0 0 0 54.122 27.435a26.277 26.277 0 0 1 7.598-25.09c10.577-9.943 27.212-9.433 37.154 1.139a52.696 52.696 0 0 0 16.677-6.376A26.359 26.359 0 0 1 112.92 28.42A52.227 52.227 0 0 0 128 24.285a53.35 53.35 0 0 1-13.104 13.603z"/></svg>
+                        <div class="container w-75 text-center">
+                        <b class="">Continue with Twitter</b>
+                        </div>
+                    </button>
                     <div class="mt-4 text-center">
-                        <p>Don't have an account?<a href="signup.html">sign up</a></p>
+                        <p>Already have am account?<a href="login.html">Log in</a></p>
                     </div>
                 </div>
             </div>
@@ -77,7 +101,7 @@
 </body>
 </html>
 <script>
-    const firebaseConfig = {
+   const firebaseConfig = {
     apiKey: "AIzaSyAO2aEfhbla0c7_Z7XzP-mQMyof3dZWfrM",
     authDomain: "ktdbad.firebaseapp.com",
     databaseURL: "https://ktdbad-default-rtdb.firebaseio.com",
@@ -86,18 +110,16 @@
     messagingSenderId: "772957424943",
     appId: "1:772957424943:web:a733a7d5fa49c8a66725da"
   };
-      
-      var provider = new firebase.auth.GoogleAuthProvider();
       const app = firebase.initializeApp(firebaseConfig);
+      var provider = new firebase.auth.GoogleAuthProvider();
 </script>
 
 <script>
     let email = document.getElementById("email")
     let password = document.getElementById("password")
+    let username = document.getElementById("username")
     let eyeicon = document.getElementById("eyeicon");
     let signs = document.getElementById("signs");
-    let username = document.getElementById("username")
-    
       eyeicon.onclick = function(){
             if(password.type == "password"){
                 password.type = "text";
@@ -122,43 +144,43 @@
         }
         email.addEventListener("input", disa);
         password.addEventListener("input", disa);
+        username.addEventListener("input", disa)
         disa()
     
-    function login(ev){
-        ev.preventDefault()
+      function signup(ev){
+        ev.preventDefault();
         butt.style.display = "block";
         signs.style.display = "none";
-       
-        firebase.auth().signInWithEmailAndPassword(email.value, password.value)
+        console.log(email.value);
+        console.log(password.value);
+        console.log(username.value);
+        
+        firebase.auth().createUserWithEmailAndPassword(email.value, password.value)
         .then((userCredential) => {
-        var user = userCredential.user;
-        console.log(user.multiFactor.user.displayName);
-        alert("Welcome Back" +" " + user.multiFactor.user.displayName +".")
-        window.location.href = "create.html"
-        butt.style.display = "none";
-        signs.style.display = "block";
-  })
+            // Signed in 
+            var user = userCredential.user;
+            user.updateProfile({
+            displayName: username.value,
+            }).then(() => {
+              console.log(user)
+            }).catch((error) => {
+            // An error occurred
+            // ...
+            });  
+            alert("Account Signup Successful");
+            butt.style.display = "none";
+            signs.style.display = "block";
+            // window.location.href = "login.html";
+        })
         .catch((error) => {
             var errorCode = error.code;
             var errorMessage = error.message;
+            console.log(errorMessage);
+            alert(errorMessage);
             butt.style.display = "none";
             signs.style.display = "block";
-            alert(errorMessage)
         });
     }
-    function checkuser(){
-        firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/v8/firebase.User
-            var uid = user.uid;
-            console.log(user)
-            alert("We're glad to see you again, " + user.multiFactor.user.displayName + " .")
-            window.location.href = "create.html"
-        } 
-        });
-    }
-    checkuser()
 
     function signG(ev){
         ev.preventDefault()
@@ -174,7 +196,7 @@
             var user = result.user;
             // IdP data available in result.additionalUserInfo.profile.
             alert("Successful")
-            window.location.href = "create.html"
+            window.location.href = "login.html"
         }).catch((error) => {
             // Handle Errors here.
             var errorCode = error.code;

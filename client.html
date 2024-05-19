@@ -9,15 +9,15 @@
         integrity="sha384-nU14brUcp6StFntEOOEBvcJm4huWjB0OcIeQ3fltAfSmuZFrkAif0T+UtNGlKKQv" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.3.1/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-storage-compat.js"></script>
     <title>Document</title>
 </head>
 <style>
     body{
-        background-image: url(blue.jpg);
+        background-image: url(https://pbs.twimg.com/media/EtJszZvW4AE_sUb?format=jpg&name=4096x4096);
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
@@ -55,7 +55,7 @@
         <div id="user" class="username"></div>
     </main>
     <main class="spin" id="spinner">
-        <h6 class="mb-5 fw-bold ">Loading Question</h6><br>
+        <!-- <h6 class="mb-5 fw-bold ">Loading Question</h6><br> -->
         <div class="spinner mt-4">
             <div></div>
             <div></div>
@@ -74,17 +74,21 @@
 </html>
 
 <script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyDtpT23EPLkTS9kfEf6Aa02Wli2Ehgfpqw",
-        authDomain: "isammy-k.firebaseapp.com",
-        projectId: "isammy-k",
-        storageBucket: "isammy-k.appspot.com",
-        messagingSenderId: "243915862365",
-        appId: "1:243915862365:web:e0c543ab2caf0ed241b8b4",
-        measurementId: "G-70P28M0HYN"
-    };
+    
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyAO2aEfhbla0c7_Z7XzP-mQMyof3dZWfrM",
+    authDomain: "ktdbad.firebaseapp.com",
+    databaseURL: "https://ktdbad-default-rtdb.firebaseio.com",
+    projectId: "ktdbad",
+    storageBucket: "ktdbad.appspot.com",
+    messagingSenderId: "772957424943",
+    appId: "1:772957424943:web:a733a7d5fa49c8a66725da"
+  };
+
+  // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
     // Initialize Firebase
-    const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 </script>
 
@@ -142,17 +146,17 @@
 
     db.collection(pin).where("hasStarted", "==", true)
         .onSnapshot((querySnapshot) => {
-            console.log(querySnapshot);
+            // console.log(querySnapshot);
             querySnapshot.forEach((el) => {
                 count()
                 shownxt()
-                console.log(el.data());
+                // console.log(el.data());
                 showqq.innerHTML = el.data().question
                 currentopt = el.data().options
                 currentAns = el.data().correctOption
                 num = el.data().index + 1;
                 currentindex = el.data().index
-                console.log(num);
+                // console.log(num);
                 displayNum.innerHTML = num;
                 var docRef = db.collection(pin);
                 docRef.get().then((querySnapshot) => {
@@ -194,7 +198,7 @@
  var docRef = db.collection(pin);
   docRef.get().then((querySnapshot) => {
   const numberOfDocs = querySnapshot.size;
-  console.log("Number of documents:", numberOfDocs);
+//   console.log("Number of documents:", numberOfDocs);
   nume = numberOfDocs
   if(currentindex >= nume - 1){
     window.location.href = 'leaderboards.html'
@@ -212,7 +216,7 @@
         const score = doc.data().score;
         avatar = doc.data().avatar;
         players.push({ username, score , avatar});
-        console.log(players);
+        // console.log(players);
         });
 
         // Sort the players by score in descending order
@@ -263,7 +267,7 @@
                 kojo.style.display = "block";
                 main.style.display = "none";
                 showlb()
-                console.log(seconds);
+                // console.log(seconds);
                 clearInterval(interval);
             }
             seconds--;
@@ -273,7 +277,7 @@
     }
 
     function anotherFunction(pscore) {
-    console.log("Updated pscore:", pscore);
+    // console.log("Updated pscore:", pscore);
 }
 
 
