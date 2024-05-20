@@ -90,7 +90,7 @@ function checkuser(){
 
       // User is signed out
       // ...
-      window.location.href = "login.html"
+      // window.location.href = "login.html"
   }
   });
 }
@@ -181,5 +181,14 @@ function save() {
     alert("Please select an image before saving changes.");
     saves.innerHTML = `Save changes`
   }
+}
+
+function logOut() {
+  firebase.auth().signOut().then(() => {
+    alert("Hope to see you next time, Bye for Now..Logging Out")
+    window.location.href = "login.html"
+  }).catch((error) => {
+    alert("Error logging out user..Try Again Later")
+  });
 }
 

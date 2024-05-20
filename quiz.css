@@ -146,4 +146,6 @@
     justify-content: center;
   }
 
-  
+  #background-music {
+    display: none;
+  }

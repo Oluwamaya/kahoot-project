@@ -37,6 +37,8 @@ let main = document.getElementById("maint")
 let kojo = document.getElementById("kojo")
 let input = document.getElementById("mang")
 let spinner = document.getElementById("spinner")
+const music = document.getElementById('background-music');
+const toggleMusicButton = document.getElementById('toggle-music');
 
 main.style.display = "none"
 // let seconds = document.getElementById("seconds")
@@ -646,8 +648,8 @@ let quiz4 = {
       hasStarted: false,
       endGame: false,
       question: "Who is the current president of Nigeria?",
-      options: ["Goodluck Jonathan", "Muhammadu Buhari", "Olusegun Obasanjo", "Yemi Osinbajo"],
-      correctOption: "Muhammadu Buhari"
+      options: ["Goodluck Jonathan","Bola Ahmed Ayantunde Tinubu ", "Muhammadu Buhari",  "Bola Ahmed Adekunle Tinubu "],
+      correctOption: "Bola Ahmed Adekunle Tinubu "
     },
       
     {
@@ -1467,7 +1469,7 @@ kojo.style.display = "none"
 
 // function setIt() {
 //   quiz4.questions.forEach((el, i) => {
-//     db.collection("391333").doc(`id${i}`).set(el)
+//     db.collection("182305").doc(`id${i}`).set(el)
 //       .then(() => {
 //         console.log("Document successfully written!");
 //       })
@@ -1492,11 +1494,32 @@ kojo.style.display = "none"
 
 // -----------------------------------------------------------------------------
 
+let play = document.getElementById("play")
+let pause = document.getElementById("pause")
+
+  // Listen for the custom event to start the quiz
+  document.addEventListener('startQuiz', async () => {
+    // Fetch questions and start music
+    music.volume = 0.5;
+   await music.play().catch(error => {
+      console.log('Autoplay prevented:', error);
+    });
+  });
+
+ play.style.backgroundColor = "blue"
+
+ if(music.paused){
+  pause.style.display = "none"
+  play.style.display = "block"
+ }else{
+  play.style.display = "none"
+  pause.style.display = "block"
+ }
+
 let gamePin = JSON.parse(localStorage.getItem("userPin"))
 let pin = gamePin.toString();
 // console.log(pin);
 async function getQue() {
- 
   db.collection(pin).where("hasStarted", "==", true).where("index", "==", currentindex)
     .get()
     .then((querySnapshot) => {
@@ -1529,6 +1552,9 @@ async function fetchQue() {
         quizz.push(maya);
         showQue()
       });
+        music.play().catch(error => {
+          console.log('Autoplay prevented:', error);
+        });
       // console.log(quizz);
     })
     .catch((error) => {
@@ -1549,7 +1575,7 @@ setTimeout(() => {
 function showQue() {
   if (quizz) {
     quiz = quizz[0]
-    // console.log("Found quiz:", quiz);
+    console.log("Found quiz:", quiz);
     displayNum.innerHTML = quiz.index + 1;
     var docRef = db.collection(pin);
     docRef.get().then((querySnapshot) => {
@@ -1600,7 +1626,7 @@ function showlb() {
   // let endgame = `<button class="btn btn-danger my-2" onclick="endd()"><span> END QUIZ</span></button>`
   showUsername.innerHTML += nextQuesbtn;
   if(currentindex >= nume - 1){
-    // window.location.href = 'leaderboard.html'
+    window.location.href = 'leaderboard.html' 
   }
   }).catch((error) => {
       console.log(error);
@@ -1663,7 +1689,8 @@ async function endd() {
     });
 
     console.log("donee");
-
+    music.pause();
+    music.currentTime = 0; 
 const querySnapshots = await db.collection(pin.toString()).where("endGame", "==", false).get();
 querySnapshots.forEach(async (doc) => {
     try {

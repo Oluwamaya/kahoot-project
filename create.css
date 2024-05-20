@@ -229,6 +229,7 @@ transition: 2s all;
     display: none;
   }
   @media (max-width: 767px) {
+    
     /* Sidebar adjustments */
     .start-0 {
       text-align: center; /* Center align for small screens */
