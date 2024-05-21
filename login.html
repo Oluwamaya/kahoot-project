@@ -258,8 +258,11 @@ button:hover {
             // https://firebase.google.com/docs/reference/js/v8/firebase.User
             var uid = user.uid;
             console.log(user)
-            alert("We're glad to see you again, " + user.multiFactor.user.displayName + " .")
-            window.location.href = "create.html"
+            if(confirm("Do you want to continue as " + user.multiFactor.user.displayName + " .")){
+
+              window.location.href = "create.html"
+            }
+
         } 
         });
     }

@@ -1467,9 +1467,11 @@ kojo.style.display = "none"
 // -------------------------------------------------------------
 // <--- I SET THE QUIZZEZ INSIDE FIREBASE FROM HERE 
 
+//NOTE ---change the quiz  quiz7.questions  to the quiz attached to the gamepin
+
 // function setIt() {
-//   quiz4.questions.forEach((el, i) => {
-//     db.collection("182305").doc(`id${i}`).set(el)
+//   quiz7.questions.forEach((el, i) => {
+//     db.collection("991203").doc(`id${i}`).set(el)
 //       .then(() => {
 //         console.log("Document successfully written!");
 //       })
@@ -1500,21 +1502,29 @@ let pause = document.getElementById("pause")
   // Listen for the custom event to start the quiz
   document.addEventListener('startQuiz', async () => {
     // Fetch questions and start music
-    music.volume = 0.5;
+    
    await music.play().catch(error => {
       console.log('Autoplay prevented:', error);
     });
   });
 
- play.style.backgroundColor = "blue"
+ 
 
- if(music.paused){
-  pause.style.display = "none"
-  play.style.display = "block"
- }else{
-  play.style.display = "none"
-  pause.style.display = "block"
- }
+  function toggleswitch() {
+    if (music.paused) {
+      music.play().then(() => {
+        play.style.display = "none";
+        pause.style.display = "inline";
+      }).catch(error => {
+        console.log('Autoplay prevented:', error);
+      });
+    } else {
+      music.pause();
+      play.style.display = "inline";
+      pause.style.display = "none";
+    }
+  }
+
 
 let gamePin = JSON.parse(localStorage.getItem("userPin"))
 let pin = gamePin.toString();
