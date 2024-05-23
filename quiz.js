@@ -1,19 +1,11 @@
-//   const firebaseConfig = {
-//   apiKey: "AIzaSyDtpT23EPLkTS9kfEf6Aa02Wli2Ehgfpqw",
-//   authDomain: "isammy-k.firebaseapp.com",
-//   projectId: "isammy-k",
-//   storageBucket: "isammy-k.appspot.com",
-//   messagingSenderId: "243915862365",
-//   appId: "1:243915862365:web:e0c543ab2caf0ed241b8b4",
-//  };
 const firebaseConfig = {
-  apiKey: "AIzaSyAO2aEfhbla0c7_Z7XzP-mQMyof3dZWfrM",
-  authDomain: "ktdbad.firebaseapp.com",
-  databaseURL: "https://ktdbad-default-rtdb.firebaseio.com",
-  projectId: "ktdbad",
-  storageBucket: "ktdbad.appspot.com",
-  messagingSenderId: "772957424943",
-  appId: "1:772957424943:web:a733a7d5fa49c8a66725da"
+  apiKey: "AIzaSyBJ_h9TsGI6JwLblFqAigR49graD38ml2c",
+  authDomain: "quizhopper-e3676.firebaseapp.com",
+  projectId: "quizhopper-e3676",
+  storageBucket: "quizhopper-e3676.appspot.com",
+  messagingSenderId: "560112687629",
+  appId: "1:560112687629:web:ff719a6dd2e08c67a25344",
+  measurementId: "G-VVT6PLZWV2"
 };
 
 // Initialize Firebase
@@ -1470,8 +1462,59 @@ kojo.style.display = "none"
 //NOTE ---change the quiz  quiz7.questions  to the quiz attached to the gamepin
 
 // function setIt() {
-//   quiz7.questions.forEach((el, i) => {
-//     db.collection("991203").doc(`id${i}`).set(el)
+//   quiz1.questions.forEach((el, i) => {
+//     db.collection("302017").doc(`id${i}`).set(el)
+//       .then(() => {
+//         console.log("Document successfully written!");
+//       })
+//       .catch((error) => {
+//         console.error("Error writing document: ", error);
+//       });
+//   })
+// }
+// setIt()
+
+// function setIt() {
+//   quiz2.questions.forEach((el, i) => {
+//     db.collection("182305").doc(`id${i}`).set(el)
+//       .then(() => {
+//         console.log("Document successfully written!");
+//       })
+//       .catch((error) => {
+//         console.error("Error writing document: ", error);
+//       });
+//   })
+// }
+// setIt()
+
+// function setIt() {
+//   quiz3.questions.forEach((el, i) => {
+//     db.collection("149216").doc(`id${i}`).set(el)
+//       .then(() => {
+//         console.log("Document successfully written!");
+//       })
+//       .catch((error) => {
+//         console.error("Error writing document: ", error);
+//       });
+//   })
+// }
+// setIt()
+
+// function setItm() {
+//   quiz4.questions.forEach((el, i) => {
+//     db.collection("419234").doc(`id${i}`).set(el)
+//       .then(() => {
+//         console.log("Document successfully written!");
+//       })
+//       .catch((error) => {
+//         console.error("Error writing document: ", error);
+//       });
+//   })
+// }
+// setItm();
+// function setIt() {
+//   quiz5.questions.forEach((el, i) => {
+//     db.collection("181720").doc(`id${i}`).set(el)
 //       .then(() => {
 //         console.log("Document successfully written!");
 //       })
@@ -1482,7 +1525,18 @@ kojo.style.display = "none"
 // }
 // setIt();
 // function setItm() {
-//   quiz4.questions.forEach((el, i) => {
+//   quiz6.questions.forEach((el, i) => {
+//     db.collection("391333").doc(`id${i}`).set(el)
+//       .then(() => {
+//         console.log("Document successfully written!");
+//       })
+//       .catch((error) => {
+//         console.error("Error writing document: ", error);
+//       });
+//   })
+// }
+// function setItm() {
+//   quiz7.questions.forEach((el, i) => {
 //     db.collection("991203").doc(`id${i}`).set(el)
 //       .then(() => {
 //         console.log("Document successfully written!");
@@ -1645,8 +1699,10 @@ function showlb() {
 
     db.collection("posts").where("gamepin", "==", parseInt(pin)).get()
     .then((querySnapshot) => {
+      console.log(querySnapshot);
         const players = [];
         querySnapshot.forEach((doc) => {
+          console.log(doc)
         const username = doc.id;
         const score = doc.data().score;
         const avatar = doc.data().avatar;
@@ -1755,25 +1811,56 @@ async function net() {
 
 let interval;
 let tete;
+// async function count() {
+//   tete = () => {
+//     time.innerHTML = seconds;
+//     time.innerHTML = (seconds < 10 ? "0" : " ") + seconds;
+//     // console.log(currentindex);
+  
+//     if (seconds <= 0) {
+//       seconds = 10;
+//       kojo.style.display = "block";
+//       main.style.display = "none";
+//       showlb()
+//       // currentindex++;
+//       // console.log(currentindex);
+//       // console.log(seconds);
+//       clearInterval(interval);
+//     }
+//     seconds--;
+//   };
+//   interval = setInterval(tete, 1000);
+// }
+
 function count() {
-  tete = () => {
-    time.innerHTML = seconds;
-    time.innerHTML = (seconds < 10 ? "0" : " ") + seconds;
-    // console.log(currentindex);
+  // Clear any existing interval to prevent overlapping intervals
+  clearInterval(interval);
+
+  let seconds = 10;
+  let pscore = 100;
+
+  function updateTimer() {
+    time.innerHTML = (seconds < 10 ? "0" : "") + seconds;
+
     if (seconds < 10) {
-      time.style.backgroundColor = "red";
+      // time.style.backgroundColor = "red";
+    } else {
+      time.style.backgroundColor = ""; // Reset background color
     }
+
     if (seconds <= 0) {
       seconds = 10;
+      pscore = 100;
       kojo.style.display = "block";
       main.style.display = "none";
-      showlb()
-      // currentindex++;
-      // console.log(currentindex);
-      // console.log(seconds);
-      clearInterval(interval);
+      showlb(); // Assuming showlb() updates the leaderboard
+      clearInterval(interval); // Clear interval when time is up
+    } else {
+      seconds--;
+      pscore -= 8;
     }
-    seconds--;
-  };
-  interval = setInterval(tete, 1000);
+  }
+
+  updateTimer(); // Initial call to set the timer immediately
+  interval = setInterval(updateTimer, 1000); // Start the interval
 }

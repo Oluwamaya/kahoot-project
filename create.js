@@ -1,11 +1,12 @@
 
- const firebaseConfig = {
-apiKey: "AIzaSyDtpT23EPLkTS9kfEf6Aa02Wli2Ehgfpqw",
-authDomain: "isammy-k.firebaseapp.com",
-projectId: "isammy-k",
-storageBucket: "isammy-k.appspot.com",
-messagingSenderId: "243915862365",
-appId: "1:243915862365:web:e0c543ab2caf0ed241b8b4",
+const firebaseConfig = {
+  apiKey: "AIzaSyBJ_h9TsGI6JwLblFqAigR49graD38ml2c",
+  authDomain: "quizhopper-e3676.firebaseapp.com",
+  projectId: "quizhopper-e3676",
+  storageBucket: "quizhopper-e3676.appspot.com",
+  messagingSenderId: "560112687629",
+  appId: "1:560112687629:web:ff719a6dd2e08c67a25344",
+  measurementId: "G-VVT6PLZWV2"
 };
   
   // Initialize Firebase
