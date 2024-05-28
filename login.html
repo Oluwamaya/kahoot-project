@@ -194,8 +194,9 @@ button:hover {
     measurementId: "G-VVT6PLZWV2"
   };
       
-      var provider = new firebase.auth.GoogleAuthProvider();
-      const app = firebase.initializeApp(firebaseConfig);
+      
+  const app = firebase.initializeApp(firebaseConfig);
+  var provider = new firebase.auth.GoogleAuthProvider();
 
     let email = document.getElementById("email")
     let password = document.getElementById("password")
@@ -268,7 +269,14 @@ button:hover {
     }
     checkuser()
 
-    function signG(ev){
+   
+  
+</script>
+
+<script>
+  const tap = firebase.initializeApp(firebaseConfig);
+  var provider = new firebase.auth.GoogleAuthProvider();
+ function signG(ev){
         ev.preventDefault()
         firebase.auth()
         .signInWithPopup(provider)
@@ -296,5 +304,4 @@ button:hover {
         });
 
     }
-  
 </script>
